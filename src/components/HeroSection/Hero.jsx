@@ -1,6 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import logsImg from "../../images/logs.jpg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -11,6 +12,7 @@ const Hero = () => {
             Logs - Search <br /> and Filter Tool
           </h1>
           <h4 className="heroLower">Efficiently manage and analyze logs</h4>
+          <Link to={'/getlogs'}><button className="getLogsButton">Get Logs</button></Link>
         </div>
         <div className="right">
         <div className="blackCircle1"></div>

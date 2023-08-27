@@ -1,0 +1,137 @@
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  
+  .log-table th,
+  .log-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+  }
+  
+  .log-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .log-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .log-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  /* Apply text wrapping for specific fields */
+  .log-table td.request_path,
+  .log-table td.user_agent,
+  .log-table td.referrer,
+  .log-table td.error_message,
+  .log-table td.log_message {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px; /* Adjust as needed */
+  }
+
+  .searchFileda{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 10px auto;
+    justify-content: center;
+    gap: 20px;
+  }
+  .log-table td.user_agent::after{
+    content: "\a";
+    white-space: pre;
+  }
+  .heading{
+    font-size: 40px;
+    text-align: center;
+    color: brown;
+}
+.select{
+    padding: 1%;
+    color: brown;
+    font-size: 15px;
+    border: 2px solid brown;
+    border-radius: 5px;
+}
+/* Add your existing styles */
+
+/* Style for the entire table */
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Ensures equal column width */
+  }
+  
+  /* Style for table cells */
+  .log-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  /* Style for the first row after user_agent */
+  .log-table .user_agent {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;
+  }
+  
+  /* Style for the "Show more" button */
+  .log-table button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }
+  
+  /* Add any additional styles you need */
+  
+  /* Add your existing styles */
+
+/* Style for the entire table */
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Ensures equal column width */
+  }
+  
+  /* Style for table cells */
+  .log-table th,
+  .log-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  /* Style for the first row after user_agent */
+  .log-table .user_agent {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;
+  }
+  
+  /* Style for the "Show more" button */
+  .log-table button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+  }
+  
+  /* Add any additional styles you need */
+  

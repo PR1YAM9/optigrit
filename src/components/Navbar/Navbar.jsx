@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <>
@@ -11,9 +12,9 @@ const Navbar = () => {
         <AppBar sx={{ bgcolor: "#FFFFFF" }} position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'brown' }}>
-              LOGS
+            <Link style={{textDecoration: 'none',color: 'brown'}} to={'/'}>Logs</Link>
             </Typography>
-            <Button sx={{color: 'brown'}} >Get Logs</Button>
+            <Button><Link style={{textDecoration: 'none',color: 'brown'}} to={'/getlogs'}>Get Logs</Link></Button>
           </Toolbar>
         </AppBar>
       </Box>
