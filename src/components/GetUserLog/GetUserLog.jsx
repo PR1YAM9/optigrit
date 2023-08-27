@@ -10,24 +10,22 @@ const GetUserLog = () => {
 
   useEffect(() => {
     setLogs(data);
-  }, []);
 
-  const search = () => {
-    if (!searchField || !searchValue) {
-      setLogs([]); // Clear the logs when no search is performed
-      return;
-    }
+    const performSearch = () => {
+      if (!searchField || !searchValue) {
+        setLogs([]); // Clear the logs when no search is performed
+        return;
+      }
 
-    const results = data.filter((log) => {
-      const fieldValue = log[searchField];
-      return fieldValue.toString().toLowerCase().includes(searchValue.toLowerCase());
-    });
+      const results = data.filter((log) => {
+        const fieldValue = log[searchField];
+        return fieldValue.toString().toLowerCase().includes(searchValue.toLowerCase());
+      });
 
-    setLogs(results);
-  };
+      setLogs(results);
+    };
 
-  useEffect(() => {
-    search();
+    performSearch();
   }, [searchField, searchValue]);
 
   const toggleShowFullContent = (field) => {
@@ -45,7 +43,6 @@ const GetUserLog = () => {
   };
 
   return (
-    <>
     <div className="cover">
       <h1 className='heading'>Get User Log</h1>
       <div className='searchFileda'>
@@ -64,7 +61,7 @@ const GetUserLog = () => {
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>
-      {logs.length > 0 && ( // Only render the table if there are search results
+      {logs.length > 0 && (
         <div className="data">
           <table className="log-table">
             <thead>
@@ -75,7 +72,7 @@ const GetUserLog = () => {
               </tr>
             </thead>
             <tbody style={{ width: '100%' }}>
-            {logs.map((log) => (
+              {logs.map((log) => (
                 <tr className="log" key={log.log_id}>
                   {Object.keys(data[0]).map((field) => (
                     <td key={field} className={field}>
@@ -103,10 +100,8 @@ const GetUserLog = () => {
             </tbody>
           </table>
         </div>
-        
       )}
-      </div>
-    </>
+    </div>
   );
 };
 
