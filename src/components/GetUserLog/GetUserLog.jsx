@@ -7,10 +7,9 @@ const GetUserLog = () => {
   const [searchField, setSearchField] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [showFullContent, setShowFullContent] = useState({});
+  const [visibleFields, setVisibleFields] = useState(Object.keys(data[0]));
 
   useEffect(() => {
-    setLogs(data);
-
     const performSearch = () => {
       if (!searchField || !searchValue) {
         setLogs([]); // Clear the logs when no search is performed
@@ -25,6 +24,7 @@ const GetUserLog = () => {
       setLogs(results);
     };
 
+    setLogs(data);
     performSearch();
   }, [searchField, searchValue]);
 
@@ -40,6 +40,14 @@ const GetUserLog = () => {
       ...prev,
       [field]: false,
     }));
+  };
+
+  const handleFieldVisibilityChange = (field) => {
+    if (visibleFields.includes(field)) {
+      setVisibleFields(visibleFields.filter((f) => f !== field));
+    } else {
+      setVisibleFields([...visibleFields, field]);
+    }
   };
 
   return (
@@ -61,12 +69,27 @@ const GetUserLog = () => {
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>
+      <div className="section2">
+        <h2 className='VF'>Visible Fields</h2>
+      <div className='field-selector'>
+        {Object.keys(data[0]).map((field) => (
+          <label key={field}>
+            <input
+              type="checkbox"
+              checked={visibleFields.includes(field)}
+              onChange={() => handleFieldVisibilityChange(field)}
+            />
+            {field}
+          </label>
+        ))}
+      </div>
+      </div>
       {logs.length > 0 && (
         <div className="data">
           <table className="log-table">
             <thead>
               <tr>
-                {Object.keys(data[0]).map((field) => (
+                {visibleFields.map((field) => (
                   <th className={'th'+field} key={field}>{field}</th>
                 ))}
               </tr>
@@ -74,7 +97,7 @@ const GetUserLog = () => {
             <tbody style={{ width: '100%' }}>
               {logs.map((log) => (
                 <tr className="log" key={log.log_id}>
-                  {Object.keys(data[0]).map((field) => (
+                  {visibleFields.map((field) => (
                     <td key={field} className={field}>
                       {log[field].length > 20 ? (
                         <div>
