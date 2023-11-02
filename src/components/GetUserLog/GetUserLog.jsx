@@ -1,32 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import data from '../../MOCK_DATA.json';
 import './GetUserLog.css';
 
 const GetUserLog = () => {
-  const [logs, setLogs] = useState([]);
   const [searchField, setSearchField] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [showFullContent, setShowFullContent] = useState({});
   const [visibleFields, setVisibleFields] = useState(Object.keys(data[0]));
-
-  useEffect(() => {
-    const performSearch = () => {
-      if (!searchField || !searchValue) {
-        setLogs([]); // Clear the logs when no search is performed
-        return;
-      }
-
-      const results = data.filter((log) => {
-        const fieldValue = log[searchField];
-        return fieldValue.toString().toLowerCase().includes(searchValue.toLowerCase());
-      });
-
-      setLogs(results);
-    };
-
-    setLogs(data);
-    performSearch();
-  }, [searchField, searchValue]);
+  const [logs, setLogs] = useState(null);
 
   const toggleShowFullContent = (field) => {
     setShowFullContent((prev) => ({
@@ -50,11 +31,31 @@ const GetUserLog = () => {
     }
   };
 
+  const handleDataSubmit = () => {
+    // Filter the data based on selected fields and perform a search
+    if (!searchField || !searchValue) {
+      setLogs([]); // Clear the logs when no search is performed
+      return;
+    }
+
+    const results = data.filter((log) => {
+      const fieldValue = log[searchField];
+      return fieldValue.toString().toLowerCase().includes(searchValue.toLowerCase());
+    });
+
+    setLogs(results);
+  };
+
   return (
     <div className="cover">
-      <h1 className='heading'>Get User Log</h1>
-      <div className='searchFileda'>
-        <select className='select' value={searchField} onChange={(e) => setSearchField(e.target.value)}>
+    <div className="topCover">
+      <h1 className="heading">Get User Log</h1>
+      <div className="searchFileda">
+        <select
+          className="select"
+          value={searchField}
+          onChange={(e) => setSearchField(e.target.value)}
+        >
           <option value="">Select a field to search</option>
           {Object.keys(data[0]).map((field) => (
             <option key={field} value={field}>
@@ -62,39 +63,47 @@ const GetUserLog = () => {
             </option>
           ))}
         </select>
-        <input className='select'
+        <input
+          className="select"
           type="text"
           placeholder={`Search by ${searchField}...`}
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>
+      </div>
       <div className="section2">
-        <h2 className='VF'>Visible Fields</h2>
-      <div className='field-selector'>
-        {Object.keys(data[0]).map((field) => (
-          <label key={field}>
-            <input
-              type="checkbox"
-              checked={visibleFields.includes(field)}
-              onChange={() => handleFieldVisibilityChange(field)}
-            />
-            {field}
-          </label>
-        ))}
+        <h2 className="VF">Visible Fields</h2>
+        <div className="field-selector">
+          {Object.keys(data[0]).map((field) => (
+            <button
+              key={field}
+              className={
+                visibleFields.includes(field) ? 'button-74' : 'not_selected'
+              }
+              onClick={() => handleFieldVisibilityChange(field)}
+            >
+              {field}
+            </button>
+          ))}
+        </div>
+      <button className="submit-button" onClick={handleDataSubmit}>
+        GET LOGS
+      </button>
       </div>
-      </div>
-      {logs.length > 0 && (
+      {logs && logs.length > 0 && (
         <div className="data">
           <table className="log-table">
             <thead>
               <tr>
                 {visibleFields.map((field) => (
-                  <th className={'th'+field} key={field}>{field}</th>
+                  <th className={`th${field}`} key={field}>
+                    {field}
+                  </th>
                 ))}
               </tr>
             </thead>
-            <tbody style={{ width: '100%' }}>
+            <tbody>
               {logs.map((log) => (
                 <tr className="log" key={log.log_id}>
                   {visibleFields.map((field) => (
@@ -104,12 +113,20 @@ const GetUserLog = () => {
                           {showFullContent[field] ? (
                             <>
                               {log[field]}{' '}
-                              <button onClick={() => toggleShowLessContent(field)}>Show less</button>
+                              <button className='show'
+                                onClick={() => toggleShowLessContent(field)}
+                              >
+                                Show less
+                              </button>
                             </>
                           ) : (
                             <>
                               {log[field].slice(0, 20)}{' '}
-                              <button onClick={() => toggleShowFullContent(field)}>Show more</button>
+                              <button className='show'
+                                onClick={() => toggleShowFullContent(field)}
+                              >
+                                Show more
+                              </button>
                             </>
                           )}
                         </div>
