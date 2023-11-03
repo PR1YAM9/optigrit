@@ -32,9 +32,8 @@ const GetUserLog = () => {
   };
 
   const handleDataSubmit = () => {
-    // Filter the data based on selected fields and perform a search
     if (!searchField || !searchValue) {
-      setLogs([]); // Clear the logs when no search is performed
+      setLogs([]);
       return;
     }
 
@@ -45,6 +44,7 @@ const GetUserLog = () => {
 
     setLogs(results);
   };
+  
 
   return (
     <div className="cover">
